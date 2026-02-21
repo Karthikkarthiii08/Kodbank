@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kodbank - Quick Launch</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      padding: 50px;
+      border-radius: 15px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      color: #667eea;
+      margin-bottom: 30px;
+      font-size: 36px;
+    }
+    .status {
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      font-size: 18px;
+    }
+    .success {
+      background: #d4edda;
+      color: #155724;
+      border: 2px solid #c3e6cb;
+    }
+    .link-box {
+      background: #f8f9fa;
+      padding: 30px;
+      border-radius: 10px;
+      margin: 30px 0;
+    }
+    .link {
+      display: block;
+      font-size: 24px;
+      color: #667eea;
+      text-decoration: none;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      margin: 15px 0;
+      transition: all 0.3s;
+      border: 2px solid #667eea;
+    }
+    .link:hover {
+      background: #667eea;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+    .instructions {
+      text-align: left;
+      background: #fff3cd;
+      padding: 20px;
+      border-radius: 8px;
+      border: 2px solid #ffc107;
+      margin: 20px 0;
+    }
+    .instructions h3 {
+      color: #856404;
+      margin-bottom: 10px;
+    }
+    .instructions ol {
+      margin-left: 20px;
+      color: #856404;
+    }
+    .instructions li {
+      margin: 8px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🏦 Kodbank Application</h1>
+    
+    <div class="status success">
+      <strong>✅ Both Servers Are Running!</strong>
+    </div>
+
+    <div class="link-box">
+      <h2 style="margin-bottom: 20px; color: #333;">Click to Open:</h2>
+      <a href="http://localhost:8080" target="_blank" class="link">
+        🚀 Open Kodbank App
+      </a>
+      <p style="margin-top: 10px; color: #666; font-size: 14px;">
+        Frontend: http://localhost:8080
+      </p>
+    </div>
+
+    <div class="instructions">
+      <h3>📋 Quick Guide:</h3>
+      <ol>
+        <li>Click the "Open Kodbank App" button above</li>
+        <li>Click "Register" to create a new account</li>
+        <li>Fill in your details and submit</li>
+        <li>Login with your credentials</li>
+        <li>Click "Check Balance" to see your $100,000!</li>
+      </ol>
+    </div>
+
+    <div style="margin-top: 30px; padding: 15px; background: #e7f3ff; border-radius: 8px; border: 2px solid #2196F3;">
+      <p style="color: #0c5460; margin-bottom: 10px;"><strong>Server Status:</strong></p>
+      <p style="color: #0c5460;">✅ Backend: http://localhost:3000</p>
+      <p style="color: #0c5460;">✅ Frontend: http://localhost:8080</p>
+    </div>
+  </div>
+
+  <script>
+    // Auto-redirect after 3 seconds
+    setTimeout(() => {
+      if (confirm('Ready to open Kodbank? Click OK to continue.')) {
+        window.location.href = 'http://localhost:8080';
+      }
+    }, 2000);
+  </script>
+</body>
+</html>

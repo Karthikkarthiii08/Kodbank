@@ -1,0 +1,110 @@
+╔════════════════════════════════════════════════════════════════╗
+║                  KODBANK - QUICK START GUIDE                   ║
+╚════════════════════════════════════════════════════════════════╝
+
+🚀 EASIEST WAY TO START:
+═══════════════════════════════════════════════════════════════
+
+Double-click: START_SERVERS.bat
+
+This will:
+✅ Start backend server (port 3000)
+✅ Start frontend server (port 8080)
+✅ Open browser automatically
+
+═══════════════════════════════════════════════════════════════
+
+📱 MANUAL START (If batch file doesn't work):
+═══════════════════════════════════════════════════════════════
+
+STEP 1: Start Backend
+1. Open Command Prompt or PowerShell
+2. Navigate to: kodbank\backend
+3. Run: npm start
+4. Keep this window open
+
+STEP 2: Start Frontend
+1. Open ANOTHER Command Prompt or PowerShell
+2. Navigate to: kodbank\frontend
+3. Run: npm start
+4. Keep this window open
+
+STEP 3: Open Browser
+1. Open any browser
+2. Go to: http://localhost:8080
+
+═══════════════════════════════════════════════════════════════
+
+🌐 IMPORTANT URLS:
+═══════════════════════════════════════════════════════════════
+
+Frontend (Main App):  http://localhost:8080
+Backend API:          http://localhost:3000
+
+═══════════════════════════════════════════════════════════════
+
+❌ TROUBLESHOOTING:
+═══════════════════════════════════════════════════════════════
+
+Problem: "localhost refused to connect"
+Solution: Make sure BOTH servers are running
+         Check if you see "server running" messages
+
+Problem: "Port already in use"
+Solution: Close other applications using ports 3000 or 8080
+         Or restart your computer
+
+Problem: "Cannot GET /"
+Solution: Make sure you're on http://localhost:8080 (not 3000)
+
+Problem: Page loads but looks broken
+Solution: Hard refresh browser (Ctrl + Shift + R)
+         Clear browser cache
+
+═══════════════════════════════════════════════════════════════
+
+✨ WHAT YOU SHOULD SEE:
+═══════════════════════════════════════════════════════════════
+
+✅ Beautiful purple gradient background
+✅ Frosted glass effect on cards
+✅ Floating animated orbs
+✅ "🏦 Kodbank" title
+✅ "Create Account" and "Sign In" buttons
+
+═══════════════════════════════════════════════════════════════
+
+🎯 NEXT STEPS:
+═══════════════════════════════════════════════════════════════
+
+1. Click "Create Account"
+2. Fill in your details
+3. Click "Sign In" 
+4. Enter your credentials
+5. Click "🎉 Check My Balance"
+6. ENJOY THE PARTY POPPER ANIMATION! 🎊
+
+═══════════════════════════════════════════════════════════════
+
+💡 TIPS:
+═══════════════════════════════════════════════════════════════
+
+• Keep both terminal windows open while using the app
+• Don't close the terminals or servers will stop
+• Bookmark http://localhost:8080 for easy access
+• Use Chrome or Edge for best experience
+
+═══════════════════════════════════════════════════════════════
+
+🆘 STILL HAVING ISSUES?
+═══════════════════════════════════════════════════════════════
+
+1. Make sure Node.js is installed
+2. Run "npm install" in both backend and frontend folders
+3. Check if ports 3000 and 8080 are free
+4. Try restarting your computer
+5. Check firewall settings
+
+═══════════════════════════════════════════════════════════════
+
+Enjoy your beautiful banking experience! 🏦✨

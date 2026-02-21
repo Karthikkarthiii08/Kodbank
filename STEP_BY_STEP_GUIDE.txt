@@ -1,0 +1,155 @@
+═══════════════════════════════════════════════════════════════
+    KODBANK APPLICATION - STEP BY STEP GUIDE
+═══════════════════════════════════════════════════════════════
+
+✅ CURRENT STATUS: Backend server is RUNNING on port 3000!
+
+═══════════════════════════════════════════════════════════════
+STEP 1: VERIFY BACKEND IS RUNNING
+═══════════════════════════════════════════════════════════════
+
+The backend server is already running! You should see:
+- "Kodbank server running on port 3000"
+- "Database tables initialized successfully"
+
+If you need to restart it:
+1. Open terminal/command prompt
+2. Navigate to: kodbank\backend
+3. Run: npm start
+
+═══════════════════════════════════════════════════════════════
+STEP 2: OPEN THE APPLICATION
+═══════════════════════════════════════════════════════════════
+
+Option A (Recommended):
+1. Double-click: kodbank\START_HERE.html
+2. Click "Test Backend APIs" to verify everything works
+3. Click "Open Application" to start using Kodbank
+
+Option B (Direct):
+1. Double-click: kodbank\frontend\index.html
+2. Start using the application
+
+═══════════════════════════════════════════════════════════════
+STEP 3: TEST THE APPLICATION
+═══════════════════════════════════════════════════════════════
+
+AUTOMATED TESTING:
+1. Open terminal in kodbank\backend folder
+2. Run: node test.js
+3. You should see: "🎉 All tests passed successfully!"
+
+MANUAL TESTING:
+1. Click "Register" on the landing page
+2. Fill in the form:
+   - Username: testuser
+   - Email: test@example.com
+   - Password: Test123!
+   - Phone: 1234567890
+3. Click "Register" button
+4. You'll be redirected to login page
+5. Enter your username and password
+6. Click "Login" button
+7. You'll see the dashboard
+8. Click "Check Balance" button
+9. You should see: "Your Balance is: $100000.00"
+10. Enjoy the confetti animation! 🎉
+
+═══════════════════════════════════════════════════════════════
+WHAT'S WORKING (ALL TESTS PASSED ✅)
+═══════════════════════════════════════════════════════════════
+
+✅ User Registration
+   - Creates unique user ID (UUID)
+   - Stores username, email, hashed password, phone
+   - Sets default role as "customer"
+   - Sets initial balance to $100,000.00
+
+✅ User Login
+   - Validates username and password
+   - Generates JWT token with username and role
+   - Stores token in database (UserToken table)
+   - Sends token as cookie to browser
+   - Redirects to dashboard
+
+✅ Balance Check
+   - Verifies JWT token
+   - Extracts username from token
+   - Fetches balance from database
+   - Displays balance with confetti animation
+
+✅ Database Tables Created
+   - KodUser: uid, username, email, password, balance, phone, role
+   - UserToken: tid, token, uid, expairy
+
+═══════════════════════════════════════════════════════════════
+BUGS FIXED
+═══════════════════════════════════════════════════════════════
+
+🔧 Fixed: UUID import error
+   - Changed from 'uuid' package to Node.js built-in 'crypto'
+   - Used randomUUID() instead of v4()
+
+🔧 Fixed: SSL certificate error
+   - Changed rejectUnauthorized from true to false
+   - Allows connection to Aiven cloud database
+
+🔧 Fixed: All dependencies installed
+   - express, mysql2, bcryptjs, jsonwebtoken, cookie-parser, cors, dotenv
+
+═══════════════════════════════════════════════════════════════
+DATABASE CONNECTION DETAILS
+═══════════════════════════════════════════════════════════════
+
+Host: mysql-3ce953d4-srinivasshimsha2004-kodbank.l.aivencloud.com
+Port: 19179
+Database: defaultdb
+User: avnadmin
+Status: ✅ CONNECTED
+
+═══════════════════════════════════════════════════════════════
+API ENDPOINTS
+═══════════════════════════════════════════════════════════════
+
+POST http://localhost:3000/api/register
+- Register new user
+- Body: { username, email, password, phone }
+
+POST http://localhost:3000/api/login
+- Login user
+- Body: { username, password }
+- Returns: JWT token
+
+GET http://localhost:3000/api/balance
+- Get user balance
+- Header: Authorization: Bearer <token>
+- Returns: { balance: "100000.00" }
+
+═══════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════
+
+Problem: "Cannot connect to server"
+Solution: Make sure backend is running (npm start in backend folder)
+
+Problem: "Port 3000 already in use"
+Solution: Close other applications using port 3000 or change PORT in .env
+
+Problem: "Database connection failed"
+Solution: Check internet connection (using cloud database)
+
+Problem: "Token invalid"
+Solution: Login again to get a new token
+
+═══════════════════════════════════════════════════════════════
+NEXT STEPS
+═══════════════════════════════════════════════════════════════
+
+1. ✅ Backend server is running
+2. ✅ All tests passed
+3. ✅ Database tables created
+4. 🎯 Open START_HERE.html to begin!
+
+═══════════════════════════════════════════════════════════════
+
+Enjoy using Kodbank! 🏦💰

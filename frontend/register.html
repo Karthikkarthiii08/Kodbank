@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kodbank - Register</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>✨ Join Kodbank</h1>
+    <p class="subtitle">Create your account and start banking</p>
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="username">👤 Username</label>
+        <input type="text" id="username" placeholder="Choose a username" required>
+      </div>
+      <div class="form-group">
+        <label for="email">📧 Email</label>
+        <input type="email" id="email" placeholder="your@email.com" required>
+      </div>
+      <div class="form-group">
+        <label for="password">🔒 Password</label>
+        <input type="password" id="password" placeholder="Create a strong password" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">📱 Phone (Optional)</label>
+        <input type="tel" id="phone" placeholder="+1 234 567 8900">
+      </div>
+      <button type="submit">Create Account</button>
+    </form>
+    <div class="link">
+      <a href="login.html">Already have an account? Sign in</a>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:3000' : '';
+    
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const button = e.target.querySelector('button');
+      const originalText = button.textContent;
+      button.textContent = 'Creating Account...';
+      button.disabled = true;
+      
+      const data = {
+        username: document.getElementById('username').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+        phone: document.getElementById('phone').value
+      };
+
+      try {
+        const response = await fetch(`${API_URL}/api/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        
+        if (response.ok) {
+          button.textContent = '✅ Success!';
+          setTimeout(() => {
+            window.location.href = 'login.html';
+          }, 1000);
+        } else {
+          alert(result.error || 'Registration failed');
+          button.textContent = originalText;
+          button.disabled = false;
+        }
+      } catch (error) {
+        alert('Error connecting to server: ' + error.message);
+        button.textContent = originalText;
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

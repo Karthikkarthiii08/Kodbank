@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kodbank - Login</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🔐 Welcome Back</h1>
+    <p class="subtitle">Sign in to your Kodbank account</p>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">👤 Username</label>
+        <input type="text" id="username" placeholder="Enter your username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">🔒 Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit">Sign In</button>
+    </form>
+    <div class="link">
+      <a href="register.html">Don't have an account? Create one</a>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:3000' : '';
+    
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const button = e.target.querySelector('button');
+      const originalText = button.textContent;
+      button.textContent = 'Signing In...';
+      button.disabled = true;
+      
+      const data = {
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value
+      };
+
+      try {
+        const response = await fetch(`${API_URL}/api/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        
+        if (response.ok) {
+          localStorage.setItem('token', result.token);
+          localStorage.setItem('username', data.username);
+          button.textContent = '✅ Success!';
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 800);
+        } else {
+          alert(result.error || 'Login failed');
+          button.textContent = originalText;
+          button.disabled = false;
+        }
+      } catch (error) {
+        alert('Error connecting to server: ' + error.message);
+        button.textContent = originalText;
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

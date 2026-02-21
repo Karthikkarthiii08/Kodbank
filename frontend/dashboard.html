@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kodbank - Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <button class="logout-btn" onclick="logout()">
+    <span>🚪</span>
+    <span>Logout</span>
+  </button>
+
+  <div class="container dashboard-container">
+    <div class="dashboard-header">
+      <h1>💎 Your Dashboard</h1>
+      <p class="welcome-text">Welcome back, <span id="usernameDisplay">User</span>!</p>
+    </div>
+
+    <div id="balanceSection" style="display: none;">
+      <div class="balance-display">
+        <p class="balance-label">💵 Your Current Balance</p>
+        <div class="balance-amount" id="balanceAmount">$0.00</div>
+        <p class="balance-subtitle">Available for transactions</p>
+      </div>
+    </div>
+
+    <button id="checkBalanceBtn" class="action-btn">
+      <span style="position: relative; z-index: 1;">🎉 Check My Balance</span>
+    </button>
+  </div>
+
+  <script>
+    const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:3000' : '';
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('username');
+    
+    if (!token) {
+      window.location.href = 'login.html';
+    }
+
+    if (username) {
+      document.getElementById('usernameDisplay').textContent = username;
+    }
+
+    function createPartyPopper() {
+      const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E2', '#F8B739'];
+      const shapes = ['confetti-star', 'confetti-circle', 'confetti-square'];
+      
+      for (let i = 0; i < 150; i++) {
+        setTimeout(() => {
+          const confetti = document.createElement('div');
+          confetti.className = `confetti ${shapes[Math.floor(Math.random() * shapes.length)]}`;
+          confetti.style.left = Math.random() * 100 + 'vw';
+          confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.animationDelay = Math.random() * 0.5 + 's';
+          confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+          
+          const size = Math.random() * 8 + 8;
+          confetti.style.width = size + 'px';
+          confetti.style.height = size + 'px';
+          
+          document.body.appendChild(confetti);
+          setTimeout(() => confetti.remove(), 4000);
+        }, i * 15);
+      }
+      playPopSound();
+    }
+
+    function playPopSound() {
+      try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.value = 800;
+        oscillator.type = 'sine';
+        
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.5);
+      } catch (error) {
+        console.log('Audio not supported');
+      }
+    }
+
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2
+      }).format(amount);
+    }
+
+    async function fetchBalance() {
+      try {
+        const response = await fetch(`${API_URL}/api/balance`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          credentials: 'include'
+        });
+
+        const result = await response.json();
+        
+        if (response.ok) {
+          return parseFloat(result.balance);
+        } else {
+          if (response.status === 401) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
+            window.location.href = 'login.html';
+          }
+          return null;
+        }
+      } catch (error) {
+        console.error('Error fetching balance:', error);
+        return null;
+      }
+    }
+
+    document.getElementById('checkBalanceBtn').addEventListener('click', async () => {
+      const button = document.getElementById('checkBalanceBtn');
+      const originalHTML = button.innerHTML;
+      button.innerHTML = '<span style="position: relative; z-index: 1;">⏳ Loading...</span>';
+      button.disabled = true;
+
+      const balance = await fetchBalance();
+      
+      if (balance !== null) {
+        document.getElementById('balanceAmount').textContent = formatCurrency(balance);
+        document.getElementById('balanceSection').style.display = 'block';
+        
+        document.getElementById('balanceSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        setTimeout(() => {
+          createPartyPopper();
+        }, 300);
+        
+        button.innerHTML = '<span style="position: relative; z-index: 1;">✅ Balance Loaded!</span>';
+        
+        setTimeout(() => {
+          button.innerHTML = '<span style="position: relative; z-index: 1;">🔄 Refresh Balance</span>';
+          button.disabled = false;
+        }, 2000);
+      } else {
+        alert('Failed to fetch balance');
+        button.innerHTML = originalHTML;
+        button.disabled = false;
+      }
+    });
+
+    function logout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      window.location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>
